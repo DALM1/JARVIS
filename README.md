@@ -25,7 +25,7 @@ Features
 	•	Action: Puts the computer into sleep mode.
 
 
-  Customization
+5.  Customization
 
 	•	The script currently uses hardcoded paths and commands for macOS. You can customize paths (e.g., for the VS Code project) and gestures according to your needs.
 	•	The thresholds for gesture recognition can be adjusted by modifying the tolerances in the is_fist, is_scissors, and is_paper functions.
@@ -35,4 +35,3 @@ Features
   This project is open-source and available under the MIT License.
 
   You can add more sections as needed, like troubleshooting or known issues, depending on your project development.
-# JARVIS
