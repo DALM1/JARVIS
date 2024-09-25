@@ -51,6 +51,26 @@ Requirements
 	•	MediaPipe: For hand gesture detection.
 	•	OpenAI API: For interacting with GPT. Make sure you have your API key set in the environment variables.
 
+Example Scenarios:
+
+	•	To open VS Code: Make a fist with your right hand.
+	•	To close all VS Code windows: Make a fist with both hands.
+	•	To open ChatGPT: Say “GPT ouverture”.
+	•	To close the program: Either say “Jarvis fermeture” or make a scissor/gun gesture with both hands.
+	•	To interact with GPT: Show an open hand (paper gesture) and speak your request.
+
+Customization
+
+	•	The script currently uses hardcoded paths and commands for macOS. You can customize paths (e.g., for the VS Code project or ChatGPT desktop app) and gestures according to your needs.
+	•	The thresholds for gesture recognition can be adjusted by modifying the tolerances in the is_fist, is_scissors, is_gun, and is_paper_without_thumb functions.
+	•	You can also add new gestures and commands by following the pattern used in the existing functions.
+
+Troubleshooting
+
+	•	Ensure that you have the ChatGPT desktop application installed if you intend to use the “GPT ouverture” voice command.
+	•	If gestures are not recognized correctly, you may need to adjust the tolerance values in the gesture recognition functions (is_fist, is_scissors, is_gun, etc.).
+	•	Make sure to check your OpenAI API key and internet connection if you encounter issues with GPT responses.
+
 
   License
 
