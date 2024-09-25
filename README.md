@@ -75,5 +75,3 @@ Troubleshooting
   License
 
   This project is open-source and available under the MIT License.
-
-  You can add more sections as needed, like troubleshooting or known issues, depending on your project development.
