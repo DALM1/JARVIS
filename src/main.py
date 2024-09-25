@@ -122,7 +122,7 @@ while True:
 
                 detection_active = False
 
-                speech.speak("Bonjour, que puis-je faire pour vous ?")
+                speech.speak("Bonjour DALM1")
                 user_input = speech.listen_google()
                 print(f"Vous avez dit: {user_input}")
 
