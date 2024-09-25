@@ -1,3 +1,6 @@
 opencv-python
 dlib
 mediapipe
+SpeechRecognition
+pyttsx3
+openai
