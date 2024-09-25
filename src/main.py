@@ -133,19 +133,23 @@ while True:
                     cv2.destroyAllWindows()
                     exit()
 
-                response = gpt.ask_gpt(user_input)
-                print(f"GPT répond: {response}")
-                speech.speak(response)
+                if "chat ouverture" in user_input.lower():
+                    print("Commande pour ouvrir ChatGPT détectée.")
+                    speech.speak("GPT Ouverture.")
+                    os.system("open -a ChatGPT")
 
-                detection_active = True  #
+                else:
+                    response = gpt.ask_gpt(user_input)
+                    print(f"GPT répond: {response}")
+                    speech.speak(response)
+
+                detection_active = True
 
 
     cv2.imshow('Hand Detection', frame)
 
-
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-
 
 camera.release()
 cv2.destroyAllWindows()
