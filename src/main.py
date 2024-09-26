@@ -7,6 +7,12 @@ from camera import Camera
 from openai_helper import GPTAgent
 from speech_helper import SpeechHelper
 
+print( "┓ ┏┏┓┓ ┏┓┏┓┳┳┓┏┓  ┳┓┏┓┓ ┳┳┓┓")
+print( "┃┃┃┣ ┃ ┃ ┃┃┃┃┃┣   ┃┃┣┫┃ ┃┃┃┃")
+print( "┗┻┛┗┛┗┛┗┛┗┛┛ ┗┗┛  ┻┛┛┗┗┛┛ ┗┻")
+print( "")
+
+
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 hands = mp_hands.Hands(min_detection_confidence=0.8, min_tracking_confidence=0.8, max_num_hands=2)
@@ -16,6 +22,39 @@ speech = SpeechHelper()
 gpt = GPTAgent()
 
 detection_active = True
+nas_path = "/Volumes/partage-1"
+
+def create_folder(folder_name):
+    folder_path = os.path.join(nas_path, folder_name)
+    try:
+        os.makedirs(folder_path, exist_ok=True)
+        speech.speak(f"Dossier {folder_name} créé avec succès.")
+        print(f"Dossier {folder_name} créé à {nas_path}")
+    except Exception as e:
+        speech.speak("Erreur lors de la création du dossier.")
+        print(f"Erreur lors de la création du dossier: {e}")
+
+def create_file(file_name, content=""):
+    file_path = os.path.join(nas_path, file_name)
+    try:
+        with open(file_path, 'w') as file:
+            file.write(content)
+        speech.speak(f"Fichier {file_name} créé avec succès.")
+        print(f"Fichier {file_name} créé à {nas_path}")
+    except Exception as e:
+        speech.speak("Erreur lors de la création du fichier.")
+        print(f"Erreur lors de la création du fichier: {e}")
+
+def code_file(file_name, code_content):
+    file_path = os.path.join(nas_path, file_name)
+    try:
+        with open(file_path, 'w') as file:
+            file.write(code_content)
+        speech.speak(f"Code écrit dans {file_name} avec succès.")
+        print(f"Code écrit dans {file_name} à {nas_path}")
+    except Exception as e:
+        speech.speak("Erreur lors de l'écriture du code dans le fichier.")
+        print(f"Erreur lors de l'écriture du code: {e}")
 
 def is_fist(hand_landmarks, h, w):
     thumb_tip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
@@ -124,18 +163,35 @@ while True:
 
                 detection_active = False
 
-                speech.speak("Bonjour DALM1")
+                speech.speak("Bonjour DALM1, que puis-je faire pour vous ?")
                 user_input = speech.listen_google()
                 print(f"Vous avez dit: {user_input}")
 
-                if "jarvis fermeture" in user_input.lower():
+                if "créer dossier" in user_input.lower():
+                    speech.speak("Quel nom pour le dossier ?")
+                    folder_name = speech.listen_google()
+                    create_folder(folder_name)
+
+                elif "créer fichier" in user_input.lower():
+                    speech.speak("Quel nom pour le fichier ?")
+                    file_name = speech.listen_google()
+                    create_file(file_name)
+
+                elif "coder fichier" in user_input.lower():
+                    speech.speak("Quel est le nom du fichier ?")
+                    file_name = speech.listen_google()
+                    speech.speak("Quel est le contenu du code ?")
+                    code_content = speech.listen_google()
+                    code_file(file_name, code_content)
+
+                elif "jarvis fermeture" in user_input.lower():
                     print("Commande de fermeture détectée. Fermeture de la session.")
                     speech.speak("Fermeture du programme.")
                     camera.release()
                     cv2.destroyAllWindows()
                     exit()
 
-                if "chat ouverture" in user_input.lower():
+                elif "chat ouverture" in user_input.lower():
                     print("Commande pour ouvrir ChatGPT détectée.")
                     speech.speak("GPT Ouverture.")
                     os.system("open -a ChatGPT")
